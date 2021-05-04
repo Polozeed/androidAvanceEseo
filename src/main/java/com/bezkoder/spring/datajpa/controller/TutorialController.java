@@ -21,11 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bezkoder.spring.datajpa.model.Tutorial;
 import com.bezkoder.spring.datajpa.repository.TutorialRepository;
 
+
+// Parametrage du Controller
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
 
+	// Autorise les service lié au controller
 	@Autowired
 	TutorialRepository tutorialRepository;
 
@@ -52,15 +55,10 @@ public class TutorialController {
 		}
 	}
 
-	@GetMapping("/tutorials/{id}")
-	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
-		Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
+	@GetMapping("/test/martin")
+	public ResponseEntity<String> getTutorialById() {
 
-		if (tutorialData.isPresent()) {
-			return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<>("Martin", HttpStatus.OK);
 	}
 
 	@PostMapping("/tutorials")
