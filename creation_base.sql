@@ -7,14 +7,16 @@ DROP TABLE IF EXISTS Information;
 CREATE TABLE Client(id_client INTEGER NOT NULL, 
                          login VARCHAR (30) NOT NULL ,
                          mdp VARCHAR (30) NOT NULL,
+			 token VARCHAR (30) NOT NULL,
                          PRIMARY KEY (id_client));
  
 CREATE TABLE Information (id_info   INTEGER NOT NULL,
-                          luminosite  INTEGER NOT NULL,
-                          niv_batt  INTEGER NOT NULL,
-		 	  pression  INTEGER NOT NULL,
-			  temperature  INTEGER NOT NULL,
-		          position_gps  INTEGER NOT NULL,
+                          luminosite  INTEGER,
+                          niv_batt  INTEGER,
+		 	  pression  INTEGER,
+			  temperature  INTEGER,
+		          latitude  INTEGER,
+			  longitude  INTEGER,
                           PRIMARY KEY (id_info));
 
 CREATE TABLE Historique_info  (id_hist_info INTEGER NOT NULL,
