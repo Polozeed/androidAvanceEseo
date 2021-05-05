@@ -1,4 +1,4 @@
-/*   	Commandes de création de la base  */
+/*   	Commandes de crï¿½ation de la base  */
 DROP TABLE IF EXISTS  Client;
 DROP TABLE IF EXISTS Historique_info;
 DROP TABLE IF EXISTS Historique_api;
