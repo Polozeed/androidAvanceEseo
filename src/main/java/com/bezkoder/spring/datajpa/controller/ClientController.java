@@ -1,13 +1,9 @@
 package com.bezkoder.spring.datajpa.controller;
 
 
-import com.bezkoder.spring.datajpa.dto.clientDto;
 import com.bezkoder.spring.datajpa.model.Client;
-import com.bezkoder.spring.datajpa.model.Tutorial;
 import com.bezkoder.spring.datajpa.repository.ClientRepository;
-import com.bezkoder.spring.datajpa.repository.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

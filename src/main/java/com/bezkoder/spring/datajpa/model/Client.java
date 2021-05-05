@@ -74,4 +74,3 @@ public class Client {
         this.token = token;
     }
 }
-
