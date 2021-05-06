@@ -3,17 +3,29 @@ package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.model.Client;
 import com.bezkoder.spring.datajpa.repository.ClientRepository;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+
 
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 
 
 @RestController
@@ -29,9 +41,6 @@ public class ClientController {
     final Gson gson = builder.create();
 
 
-
-
-    //  Get ==> http://localhost:8083/client/liste
     @GetMapping("/liste")
     public ResponseEntity<String> getAllCLient() {
         List<Client> client = clientRepository.findAll();
@@ -90,6 +99,85 @@ public class ClientController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    /*@PostMapping("/c")
+    public ResponseEntity<String> connexion(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+        try {
+            Client clientconnexion = clientRepository.findByLogin(username);
+            System.out.println(gson.toJson(clientconnexion));
+            System.out.println(gson.toJson("666666666666666666666666666666666666"));
+            System.out.println(gson.toJson(username));
+            System.out.println(gson.toJson(pwd));
+            if ((clientconnexion.getLogin()== username)&&(clientconnexion.getMdp() == pwd))
+            {
+                return new ResponseEntity<>(gson.toJson(clientconnexion), HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>(gson.toJson("Error Username or pwd "), HttpStatus.CREATED);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+     */
+    @PostMapping("/connexion")
+    public ResponseEntity<String> connexionClient(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+        try {
+            List<Client> client = clientRepository.findAllByLogin(username);
+            if ((client.get(0).getLogin().equalsIgnoreCase(username))&&(client.get(0).getMdp().equalsIgnoreCase(pwd)))
+            {
+                String token = getJWTToken(username);
+                client.get(0).setToken(token);
+                Client clientReturn = clientRepository.save(client.get(0));
+                return new ResponseEntity<>(gson.toJson(clientReturn), HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>(gson.toJson("Error Username or pwd "), HttpStatus.CREATED);
+            }
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/inscription")
+    public ResponseEntity<String> loginClient(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+        try {
+            String token = getJWTToken(username);
+            Client user = new Client();
+            user.setLogin(username);
+            user.setMdp(pwd);
+            user.setToken(token);
+            Client client1 = clientRepository
+                    .save(user);
+            return new ResponseEntity<>(gson.toJson(client1), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    private String getJWTToken(String username) {
+        String secretKey = "mySecretKey";
+        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+                .commaSeparatedStringToAuthorityList("ROLE_USER");
+
+        String token = Jwts
+                .builder()
+                .setId("softtekJWT")
+                .setSubject(username)
+                .claim("authorities",
+                        grantedAuthorities.stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .collect(Collectors.toList()))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 600000))
+                .signWith(SignatureAlgorithm.HS512,
+                        secretKey.getBytes()).compact();
+
+        return "Bearer " + token;
     }
 
 }
