@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "historique_api")
-public class HistoriqueAPI {
+@Table(name = "historique_info")
+public class HistoriqueInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id_hist_api;
+    private long id_hist_info;
 
     @OneToOne
     @JoinColumn(name = "id_client")
@@ -22,25 +22,32 @@ public class HistoriqueAPI {
     @JoinColumn(name = "id_info")
     private Information id_info;
 
-    @Column(name = "type_comm")
-    private String type_comm;
 
-    public HistoriqueAPI() {
+    public HistoriqueInfo() {
     }
 
-    public HistoriqueAPI(Client id_client, Date dateheure, Information id_info, String type_comm) {
+    public HistoriqueInfo(Client id_client, Date dateheure, Information id_info) {
         this.id_client = id_client;
         this.dateheure = dateheure;
         this.id_info = id_info;
-        this.type_comm = type_comm;
     }
 
-    public long getId_hist_api() {
-        return id_hist_api;
+    @Override
+    public String toString() {
+        return "HistoriqueInfo{" +
+                "id_hist_info=" + id_hist_info +
+                ", id_client=" + id_client +
+                ", dateheure=" + dateheure +
+                ", id_info=" + id_info +
+                '}';
     }
 
-    public void setId_hist_api(long id_hist_api) {
-        this.id_hist_api = id_hist_api;
+    public long getId_hist_info() {
+        return id_hist_info;
+    }
+
+    public void setId_hist_info(long id_hist_info) {
+        this.id_hist_info = id_hist_info;
     }
 
     public Client getId_client() {
@@ -65,13 +72,5 @@ public class HistoriqueAPI {
 
     public void setId_info(Information id_info) {
         this.id_info = id_info;
-    }
-
-    public String getType_comm() {
-        return type_comm;
-    }
-
-    public void setType_comm(String type_comm) {
-        this.type_comm = type_comm;
     }
 }
