@@ -1,0 +1,2 @@
+Attention a bien au cache sur le navigateur si error API : Set-Cookie: JSESSIONID=67319A5C8E4D5D10F0AC2A151D4B0986;
+
