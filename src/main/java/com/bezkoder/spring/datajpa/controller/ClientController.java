@@ -1,6 +1,7 @@
 package com.bezkoder.spring.datajpa.controller;
 
 
+import com.bezkoder.spring.datajpa.dto.clientDto;
 import com.bezkoder.spring.datajpa.model.Client;
 import com.bezkoder.spring.datajpa.repository.ClientRepository;
 import io.jsonwebtoken.Jwts;
@@ -94,7 +95,6 @@ public class ClientController {
             Client client1 = clientData.get();
             client1.setLogin(client.getLogin());
             client1.setMdp(client.getMdp());
-            client1.setToken(client.getToken());
             return new ResponseEntity<>(clientRepository.save(client1), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -123,14 +123,15 @@ public class ClientController {
 
      */
     @PostMapping("/connexion")
-    public ResponseEntity<String> connexionClient(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+    public ResponseEntity<String> connexionClient(@RequestBody clientDto clientdto) {
         try {
-            List<Client> client = clientRepository.findAllByLogin(username);
-            if ((client.get(0).getLogin().equalsIgnoreCase(username))&&(client.get(0).getMdp().equalsIgnoreCase(pwd)))
+            List<Client> client = clientRepository.findAllByLogin(clientdto.getLogin());
+            if ((client.get(0).getLogin().equalsIgnoreCase(clientdto.getLogin()))&&(client.get(0).getMdp().equalsIgnoreCase(clientdto.getMdp())))
             {
-                String token = getJWTToken(username);
+                String token = getJWTToken(clientdto.getLogin());
                 client.get(0).setToken(token);
                 Client clientReturn = clientRepository.save(client.get(0));
+                System.out.println(clientReturn.toString());
                 return new ResponseEntity<>(gson.toJson(clientReturn), HttpStatus.CREATED);
             }
             else {
@@ -143,12 +144,13 @@ public class ClientController {
     }
 
     @PostMapping("/inscription")
-    public ResponseEntity<String> loginClient(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+    public ResponseEntity<String> loginClient(@RequestBody clientDto client) {
         try {
-            String token = getJWTToken(username);
+
             Client user = new Client();
-            user.setLogin(username);
-            user.setMdp(pwd);
+            user.setLogin(client.getLogin());
+            String token = getJWTToken(user.getLogin());
+            user.setMdp(client.getMdp());
             user.setToken(token);
             Client client1 = clientRepository
                     .save(user);
