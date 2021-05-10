@@ -1,2 +1,13 @@
 Attention a bien au cache sur le navigateur si error API : Set-Cookie: JSESSIONID=67319A5C8E4D5D10F0AC2A151D4B0986;
 
+Git hub Android application :
+https://github.com/Polozeed/androidESEO_SortirAangers/tree/master
+
+
+
+Api open source Angers :
+
+Liens :
+
+https://data.angers.fr/api/v1/console/records/1.0/search/?dataset=alm_501_dechets_canisacjson&rows=8
+https://data.angers.fr/api/records/1.0/search/?dataset=alm_501_dechets_canisacjson&q=&rows=8
