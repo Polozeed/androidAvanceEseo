@@ -28,8 +28,10 @@ public class SpringBootDataJpaApplication {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					//.antMatchers(HttpMethod.POST,"/client/connexion" ).permitAll()
-					.antMatchers(HttpMethod.POST, "/client/inscription","/client/connexion").permitAll()
-					.anyRequest().authenticated();
+					.antMatchers(HttpMethod.POST, "/client/inscription","/client/connexion","/api/test/martin").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/test/martin").permitAll()
+
+                    .anyRequest().authenticated();
 		}
 	}
 
