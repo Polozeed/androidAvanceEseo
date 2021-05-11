@@ -29,7 +29,7 @@ public class SpringBootDataJpaApplication {
 					.authorizeRequests()
 					//.antMatchers(HttpMethod.POST,"/client/connexion" ).permitAll()
 					.antMatchers(HttpMethod.POST, "/client/inscription","/client/connexion","/api/test/martin").permitAll()
-                    .antMatchers(HttpMethod.GET,"/api/test/martin","/client/liste","/client/{id}").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/test/martin","/client/liste","/client/{id}","/information/liste", "/information/{id}").permitAll()
 
                     .anyRequest().authenticated();
 		}
