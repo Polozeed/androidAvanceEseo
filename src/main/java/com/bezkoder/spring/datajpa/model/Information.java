@@ -17,47 +17,34 @@ public class Information {
     private long id_info;
 
     @Column(name = "luminosite")
-    private int luminosite;
+    private long luminosite;
 
-    @Column(name = "niv_batt")
-    private int niv_batt;
+    @Column(name = "proximite")
+    private long proximite;
 
-    @Column(name = "pression")
-    private int pression;
+    @Column(name = "gravite")
+    private long gravite;
 
-    @Column(name = "temperature")
-    private int temperature;
+    @Column(name = "acceleration")
+    private long acceleration;
 
     @Column(name = "latitude")
-    private int latitude;
+    private long latitude;
 
     @Column(name = "longitude")
-    private int longitude;
+    private long longitude;
 
 
     public Information() {
     }
 
-    public Information(int luminosite, int niv_batt, int pression, int temperature, int latitude, int longitude) {
+    public Information(long luminosite, long proximite, long gravite, long acceleration, long latitude, long longitude) {
         this.luminosite = luminosite;
-        this.niv_batt = niv_batt;
-        this.pression = pression;
-        this.temperature = temperature;
+        this.proximite = proximite;
+        this.gravite = gravite;
+        this.acceleration = acceleration;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    @Override
-    public String toString() {
-        return "Information{" +
-                "id_info=" + id_info +
-                ", luminosite=" + luminosite +
-                ", niv_batt=" + niv_batt +
-                ", pression=" + pression +
-                ", temperature=" + temperature +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
     }
 
     public long getId_info() {
@@ -68,51 +55,51 @@ public class Information {
         this.id_info = id_info;
     }
 
-    public int getLuminosite() {
+    public long getLuminosite() {
         return luminosite;
     }
 
-    public void setLuminosite(int luminosite) {
+    public void setLuminosite(long luminosite) {
         this.luminosite = luminosite;
     }
 
-    public int getNiv_batt() {
-        return niv_batt;
+    public long getProximite() {
+        return proximite;
     }
 
-    public void setNiv_batt(int niv_batt) {
-        this.niv_batt = niv_batt;
+    public void setProximite(long proximite) {
+        this.proximite = proximite;
     }
 
-    public int getPression() {
-        return pression;
+    public long getGravite() {
+        return gravite;
     }
 
-    public void setPression(int pression) {
-        this.pression = pression;
+    public void setGravite(long gravite) {
+        this.gravite = gravite;
     }
 
-    public int getTemperature() {
-        return temperature;
+    public long getAcceleration() {
+        return acceleration;
     }
 
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
+    public void setAcceleration(long acceleration) {
+        this.acceleration = acceleration;
     }
 
-    public int getLatitude() {
+    public long getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(long latitude) {
         this.latitude = latitude;
     }
 
-    public int getLongitude() {
+    public long getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(long longitude) {
         this.longitude = longitude;
     }
 }

@@ -67,8 +67,8 @@ public class InformationController {
     public ResponseEntity<String> createInfo(@RequestBody Information information) {
         try {
             Information information1 = informationRepository
-                    .save(new Information(information.getLuminosite(), information.getNiv_batt(),information.getPression(),
-                            information.getTemperature(),information.getLatitude(),information.getLongitude()));
+                    .save(new Information(information.getLuminosite(), information.getProximite(),information.getGravite(),
+                            information.getAcceleration(),information.getLatitude(),information.getLongitude()));
             System.out.println(information.toString());
             return new ResponseEntity<>(gson.toJson(information1), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -83,9 +83,9 @@ public class InformationController {
         if (infoData.isPresent()) {
             Information information1 = infoData.get();
             information1.setLuminosite(information.getLuminosite());
-            information1.setNiv_batt(information.getNiv_batt());
-            information1.setPression(information.getPression());
-            information1.setTemperature(information.getTemperature());
+            information1.setProximite(information.getProximite());
+            information1.setGravite(information.getGravite());
+            information1.setAcceleration(information.getAcceleration());
             information1.setLatitude(information.getLatitude());
             information1.setLongitude(information.getLongitude());
             return new ResponseEntity<>(informationRepository.save(information1), HttpStatus.OK);
