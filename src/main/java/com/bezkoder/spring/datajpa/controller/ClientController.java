@@ -58,6 +58,7 @@ public class ClientController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteClientWithId(@PathVariable("id") long id) {
         try {
+            System.out.println("Delete Client :" + id);
             clientRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
