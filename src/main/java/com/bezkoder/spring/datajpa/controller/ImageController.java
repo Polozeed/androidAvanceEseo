@@ -65,9 +65,10 @@ public class ImageController {
 
     }
 
-    @GetMapping("/downloadFile/{fileId}")
+    @GetMapping("/downloadImage/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws Exception {
         // Load file from database
+
         DBFile dbFile = dbFileStorageService.getFile(fileId);
 
         return ResponseEntity.ok()
